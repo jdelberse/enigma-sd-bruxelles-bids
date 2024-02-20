@@ -6,16 +6,11 @@ tsv = pd.read_csv("participants.tsv", sep="\t")
 tsv.set_index('participant_id', inplace=True)
 
 for sub in tsv.index:
-    first_ses = "NN"
-
-    if first_ses == "NN":
-        ses_labs = {"ses-1" : "ses-nn", "ses-2" : "ses-sd"}
-    else:
-        ses_labs = {"ses-1" : "ses-sd", "ses-2" : "ses-nn"}
+    ses_labs = {"ses-01" : "ses-nn", "ses-03" : "ses-sd", "ses-04" : "ses-rc"}
     
-    for ses in ["ses-1", "ses-2"]:
-        old_scan = f"{sub}/{ses}/{sub}_{ses}_T1w.nii.gz"
-        new_scan = f"{sub}/{ses}/{sub}_{ses_labs[ses]}_T1w.nii.gz"
+    for ses in ses_labs.keys():
+        old_scan = f"{sub}/{ses}/anat/{sub}_{ses}_T1w.nii.gz"
+        new_scan = f"{sub}/{ses}/anat/{sub}_{ses_labs[ses]}_T1w.nii.gz"
         
         if not os.path.exists(new_scan):
             print(f"{old_scan} >>> {new_scan}")
