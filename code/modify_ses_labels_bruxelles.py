@@ -6,7 +6,7 @@ tsv = pd.read_csv("participants.tsv", sep="\t")
 tsv.set_index('participant_id', inplace=True)
 
 for sub in tsv.index:
-    ses_labs = {"ses-01" : "ses-nn", "ses-03" : "ses-sd", "ses-04" : "ses-rc"}
+    ses_labs = {"ses-nn" : "ses-bl", "ses-sd" : "ses-sd", "ses-rc" : "ses-rc"}
     
     for ses in ses_labs.keys():
         old_scan = f"{sub}/{ses}/anat/{sub}_{ses}_T1w.nii.gz"
