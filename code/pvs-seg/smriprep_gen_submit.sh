@@ -9,7 +9,7 @@ LOGS=$ROOT/derivatives/logs
 CONTAINERS=/data/project/sleep_ENIGMA_glymphatic/enigma-sd/containers/
 SMRIPREP=$CONTAINERS/images/bids/bids-smriprep--0.13.2.sing
 WORK=/tmp
-OUT=$ROOT/derivatives
+OUT=$ROOT/derivatives/smriprep
 SYMLINK=$ROOT/.git/annex/objects
 
 # create the logs or out dir if it doesn't exist
@@ -38,7 +38,7 @@ for dir in $ROOT/sub-001; do
         ${SMRIPREP} \
         --skull-strip-fixed-seed \
         --work-dir ${WORK} \
-        ${ROOT} ${OUT} participant \
+        ${ROOT} ${OUT}/${sub}/${ses} participant \
         --participant-label ${sub} \
         --bids-filter-file ${ROOT}/code/pvs-seg/filter_${ses}.json\n"
         printf "log       = ${LOGS}/\$(Cluster).\$(Process).${sub}.${ses}.log.txt\n"
