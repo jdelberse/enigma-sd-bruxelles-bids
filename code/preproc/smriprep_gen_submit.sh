@@ -30,7 +30,7 @@ executable     = /usr/bin/singularity
 
 # loop over all subjects
 for dir in $ROOT/sub-*; do
-    for ses in ses-bl ses-sd; do
+    for ses in ses-sd; do
     	sub=${dir#$ROOT/}
         printf "arguments = run \
         --cleanenv \
@@ -40,7 +40,7 @@ for dir in $ROOT/sub-*; do
         --work-dir ${WORK} \
         ${ROOT} ${OUT}/${sub}/${ses} participant \
         --participant-label ${sub} \
-        --bids-filter-file ${ROOT}/code/pvs-seg/filter_${ses}.json\n"
+        --bids-filter-file ${ROOT}/code/preproc/filter_${ses}.json\n"
         printf "log       = ${LOGS}/\$(Cluster).\$(Process).${sub}.${ses}.log.txt\n"
         printf "output    = ${LOGS}/\$(Cluster).\$(Process).${sub}.${ses}.out.txt\n"
         printf "error     = ${LOGS}/\$(Cluster).\$(Process).${sub}.${ses}.err.txt\n"
