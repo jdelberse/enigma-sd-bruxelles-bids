@@ -8,7 +8,7 @@ ROOT=$(pwd)
 LOGS=$ROOT/derivatives/logs
 CONTAINERS=/data/project/sleep_ENIGMA_glymphatic/enigma-sd/containers/
 SMRIPREP=$CONTAINERS/images/bids/bids-smriprep--0.13.2.sing
-WORK=/tmp
+WORK=/data/project/sleep_ENIGMA_glymphatic/work
 OUT=$ROOT/derivatives/smriprep
 SYMLINK=$ROOT/.git/annex/objects
 
