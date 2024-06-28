@@ -1,4 +1,5 @@
 #!/bin/bash
+sub=$1
 
 CPUS='4'
 RAM='32G'
@@ -29,7 +30,7 @@ executable     = /usr/bin/singularity
 \n"
 
 # loop over all subjects
-for dir in $ROOT/sub-002; do
+for dir in $ROOT/$sub; do
     for ses in ses-sd; do
     	sub=${dir#$ROOT/}
         printf "arguments = run \
