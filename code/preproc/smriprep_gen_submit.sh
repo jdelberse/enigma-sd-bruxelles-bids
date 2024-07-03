@@ -1,6 +1,4 @@
 #!/bin/bash
-sub=$1
-
 CPUS='4'
 RAM='32G'
 DISK='90G'
@@ -8,7 +6,7 @@ DISK='90G'
 ROOT=$(pwd)
 LOGS=$ROOT/derivatives/logs
 CONTAINERS=/data/project/sleep_ENIGMA_glymphatic/enigma-sd/containers/
-SMRIPREP=$CONTAINERS/images/bids/bids-smriprep--0.13.2.sing
+SMRIPREP=$CONTAINERS/images/bids/bids-smriprep--0.15.0.sing
 WORK=/data/project/sleep_ENIGMA_glymphatic/work
 OUT=$ROOT/derivatives/smriprep
 SYMLINK=$ROOT/.git/annex/objects
@@ -30,9 +28,11 @@ executable     = /usr/bin/singularity
 \n"
 
 # loop over all subjects
-for dir in $ROOT/$sub; do
+for dir in $ROOT/sub-*; do
     for ses in ses-sd; do
+        datalad get $dir/$ses/anat/*
     	sub=${dir#$ROOT/}
+        
         printf "arguments = run \
         --cleanenv \
         -B ${SYMLINK},${WORK},${ROOT},${OUT},/opt/freesurfer/7.4/license.txt:/opt/freesurfer/license.txt \
