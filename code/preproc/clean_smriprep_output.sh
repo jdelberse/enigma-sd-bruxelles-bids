@@ -22,7 +22,7 @@ for dir in $old/sub-*; do # loop over subject directories
     mkdir $new/$sub
 
     echo Processing $sub
-    for ses in ses-bl ses-sd; do # loop over sessions
+    for ses in ses-sd; do # loop over sessions
         echo $ses
 
         # SMRIPrep wrangling
