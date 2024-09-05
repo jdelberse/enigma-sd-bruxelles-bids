@@ -29,7 +29,7 @@ executable     = /usr/bin/singularity
 
 # loop over all subjects
 for dir in $ROOT/sub-*; do
-    for ses in ses-sd; do
+    for ses in ses-*; do
         datalad get $dir/$ses/anat/*
     	sub=${dir#$ROOT/}
         
