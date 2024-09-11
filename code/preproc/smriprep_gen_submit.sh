@@ -7,7 +7,7 @@ ROOT=$(pwd)
 LOGS=$ROOT/derivatives/logs
 CONTAINERS=/data/project/sleep_ENIGMA_glymphatic/enigma-sd/containers/
 SMRIPREP=$CONTAINERS/images/bids/bids-smriprep--0.15.0.sing
-WORK=/data/project/sleep_ENIGMA_glymphatic/work
+WORK=/tmp
 OUT=$ROOT/derivatives/smriprep
 SYMLINK=$ROOT/.git/annex/objects
 
@@ -28,8 +28,8 @@ executable     = /usr/bin/singularity
 \n"
 
 # loop over all subjects
-for dir in $ROOT/sub-*; do
-    for ses in ses-*; do
+for dir in $ROOT/sub-001; do
+    for ses in ses-bl ses-sd; do
         datalad get $dir/$ses/anat/*
     	sub=${dir#$ROOT/}
         
