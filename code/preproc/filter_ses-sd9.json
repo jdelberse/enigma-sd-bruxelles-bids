@@ -1,0 +1,12 @@
+{
+    "t1w": {
+        "datatype": "anat",
+        "session": "sd9",
+        "suffix": "T1w"
+    },
+    "t2w": {
+        "datatype": "anat",
+        "session": "sd9",
+        "suffix": "T2w"
+    }
+}
