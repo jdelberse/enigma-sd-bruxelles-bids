@@ -43,8 +43,7 @@ for dir in $ROOT/sub-*; do
         --output-spaces MNI152NLin2009cAsym \
         --work-dir ${WORK} \
         ${ROOT} ${OUT}/${sub}/${ses} participant \
-        --participant-label ${sub} \
-        --bids-filter-file ${ROOT}/code/preproc/filter_${ses}.json\n"
+        --participant-label ${sub} \n"
         printf "log       = ${LOGS}/\$(Cluster).\$(Process).${sub}.${ses}.log.txt\n"
         printf "output    = ${LOGS}/\$(Cluster).\$(Process).${sub}.${ses}.out.txt\n"
         printf "error     = ${LOGS}/\$(Cluster).\$(Process).${sub}.${ses}.err.txt\n"
