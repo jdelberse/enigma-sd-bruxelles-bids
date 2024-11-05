@@ -32,20 +32,22 @@ executable     = /usr/bin/singularity
 
 # loop over all subjects
 for dir in $ROOT/sub-*; do
-    sub=${dir#$ROOT/}
-    printf "arguments = run \
-    --cleanenv \
-    -B ${SYMLINK},${WORK},${ROOT},${OUT},/opt/freesurfer/7.4/license.txt:/opt/freesurfer/license.txt \
-    ${FMRIPREP} \
-    --anat-only \
-    --longitudinal \
-    --skull-strip-fixed-seed \
-    --output-spaces MNI152NLin2009cAsym \
-    --work-dir ${WORK} \
-    ${ROOT} ${OUT}/${sub}/${ses} participant \
-    --participant-label ${sub} \n"
-    printf "log       = ${LOGS}/\$(Cluster).\$(Process).${sub}.log.txt\n"
-    printf "output    = ${LOGS}/\$(Cluster).\$(Process).${sub}.out.txt\n"
-    printf "error     = ${LOGS}/\$(Cluster).\$(Process).${sub}.err.txt\n"
-    printf "Queue\n\n"
+    for ses in ses-b9 ses-sd9; do
+        sub=${dir#$ROOT/}
+        printf "arguments = run \
+        --cleanenv \
+        -B ${SYMLINK},${WORK},${ROOT},${OUT},/opt/freesurfer/7.4/license.txt:/opt/freesurfer/license.txt \
+        ${FMRIPREP} \
+        --anat-only \
+        --skull-strip-fixed-seed \
+        --output-spaces MNI152NLin2009cAsym \
+        --work-dir ${WORK} \
+        ${ROOT} ${OUT}/${sub}/${ses} participant \
+        --participant-label ${sub}
+        --bids-filter-file ${ROOT}/code/preproc/filter_${ses}.json\n"
+        printf "log       = ${LOGS}/\$(Cluster).\$(Process).${sub}.${ses}.log.txt\n"
+        printf "output    = ${LOGS}/\$(Cluster).\$(Process).${sub}.${ses}.out.txt\n"
+        printf "error     = ${LOGS}/\$(Cluster).\$(Process).${sub}.${ses}.err.txt\n"
+        printf "Queue\n\n"
+    done
 done
