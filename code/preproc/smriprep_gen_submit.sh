@@ -6,7 +6,7 @@ DISK='90G'
 ROOT=$(pwd)
 LOGS=$ROOT/derivatives/logs
 CONTAINERS=/data/project/sleep_ENIGMA_glymphatic/enigma-sd/containers/
-SMRIPREP=$CONTAINERS/images/bids/bids-smriprep--0.13.2.sing
+SMRIPREP=$CONTAINERS/images/bids/bids-smriprep--0.16.1.sing
 WORK=/tmp
 OUT=$ROOT/derivatives/smriprep
 SYMLINK=$ROOT/.git/annex/objects
@@ -31,8 +31,8 @@ executable     = /usr/bin/singularity
 \n"
 
 # loop over all subjects
-for dir in $ROOT/sub-*; do
-    for ses in ses-b9; do
+for dir in $ROOT/sub-001; do
+    for ses in ses-b9 ses-sd9; do
     	sub=${dir#$ROOT/}
         printf "arguments = run \
         --cleanenv \
