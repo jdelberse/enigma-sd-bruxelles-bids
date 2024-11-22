@@ -1,0 +1,5 @@
+{
+    "input":    "/data/project/sleep_ENIGMA_glymphatic/enigma-sd/bruxelles-bids/sub-001/ses-b9/anat/sub-001_ses-b9_T1w.nii.gz",
+    "template":    "MNI_152_T1_1mm",
+    "type":    "T1"
+} 

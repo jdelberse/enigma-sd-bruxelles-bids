@@ -2,6 +2,7 @@
     "t1w": {
         "datatype": "anat",
         "session": "b9",
+        "acquisition" : "acpc",
         "suffix": "T1w"
     },
     "t2w": {

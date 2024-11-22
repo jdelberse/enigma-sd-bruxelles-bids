@@ -1,0 +1,105 @@
+#!/bin/bash
+
+## This app will align a T1/T2w image to the ACPC plane (specifically, the MNI152_T1/2_1mm template from
+## FSL using a 6 DOF alignment via FSL commands. This protocol was adapted from the HCP Preprocessing
+## Pipeline (https://github.com/Washington-University/HCPpipelines.git). Requires a T1w image input
+## and outputs an acpc_aligned T1w image.
+
+set -x
+set -e
+
+config=$1
+
+input=`jq -r '.input' $config`
+template=`jq -r '.template' $config`
+type=`jq -r '.type' $config` #T1 or T2
+crop=`jq -r '.crop' $config`
+reorient=`jq -r '.reorient' $config`
+mask=`jq -r '.mask' $config`
+cleanup=`jq -r '.cleanup' $config`
+[ ! -d ./transform ] && mkdir -p transform
+
+product=""
+
+#we use space from
+#https://bids-specification.readthedocs.io/en/stable/99-appendices/08-coordinate-systems.html#template-based-coordinate-systems
+
+case $template in
+nihpd_asym*)
+    space="NIHPD"
+    [ $type == "T1" ] && template=templates/${template}_t1w.nii
+    [ $type == "T2" ] && template=templates/${template}_t2w.nii
+    ;;
+*)
+    space="MNI152NLin6Asym"
+    [ $type == "T1" ] && template=templates/MNI152_T1_1mm
+    [ $type == "T2" ] && template=templates/MNI152_T2_1mm
+    brainmask=templates/MNI152_T1_1mm_brain_mask_dil
+    ;;
+esac
+
+case $type in
+T1)
+    output=output/t1.nii.gz
+    ;;
+T2)
+    output=output/t2.nii.gz
+    ;;
+esac
+
+if [[ ${reorient} == "true" ]]; then
+    fslreorient2std -m reorient.txt ${input} ./${type}_reorient && input=${type}_reorient.nii.gz
+fi
+
+if [[ ${crop} == "true" ]]; then
+    robustfov -i $input -m roi2full.mat -r input_robustfov.nii.gz
+    convert_xfm -omat full2roi.mat -inverse roi2full.mat
+else
+    cp ${input} ./input_robustfov.nii.gz
+fi
+
+if [[ ${mask} == "true" ]]; then
+    if [[ ${space} == "MNI152NLin6Asym" ]]; then
+	   fslmaths ${template} -mas ${brainmask} template_masked.nii.gz
+	   template=./template_masked.nii.gz
+    fi
+fi
+
+flirt -interp spline -in input_robustfov.nii.gz -ref $template -omat roi2std.mat -out acpc_mni.nii.gz
+
+if [[ ${crop} == "true" ]]; then
+    convert_xfm -omat full2std.mat -concat roi2std.mat full2roi.mat
+else
+    cp roi2std.mat ./full2std.mat
+fi
+aff2rigid full2std.mat outputmatrix
+
+mkdir -p output
+applywarp --rel --interp=spline -i $input -r $template --premat=outputmatrix -o $output
+
+# make png
+slicer $output -x 0.5 out_aligncheck.png
+
+# move transform
+[ ! -f ./transform/affine.txt ] && mv outputmatrix ./transform/affine.txt
+
+if [[ ${cleanup} == "true" ]]; then
+    rm -Rf ./templates
+    rm -Rf ./.git
+    rm acpc_mni.nii.gz
+fi
+
+# create product.json
+cat << EOF > product.json
+{
+    "output": { "meta": { "Space": "$space" }, "tags": [ "space-$space"] },
+    "brainlife": [
+        { 
+            "type": "image/png", 
+            "name": "Alignment Check (-x 0.5)",
+            "base64": "$(base64 -w 0 out_aligncheck.png)"
+        }
+    ]
+}
+EOF
+echo "all done!"
