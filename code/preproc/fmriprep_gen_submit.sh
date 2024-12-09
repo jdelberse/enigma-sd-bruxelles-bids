@@ -31,8 +31,8 @@ executable     = /usr/bin/singularity
 \n"
 
 # loop over all subjects
-for dir in $ROOT/sub-001; do
-    for ses in ses-sd9; do
+for dir in $ROOT/sub-*; do
+    for ses in ses-b9 ses-sd9; do
         sub=${dir#$ROOT/}
         printf "arguments = run \
         --cleanenv \
