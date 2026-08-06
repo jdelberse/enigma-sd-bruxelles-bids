@@ -1,1 +1,0 @@
-../../../../../../../../.git/annex/objects/z1/MG/MD5E-s10233--04036118e7303c4486acf96b9f38c7cb.rst/MD5E-s10233--04036118e7303c4486acf96b9f38c7cb.rst

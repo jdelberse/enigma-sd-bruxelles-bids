@@ -1,1 +1,0 @@
-../../../../../../../.git/annex/objects/Gw/3x/MD5E-s26601--a6c75fb2503f9db4a7ca0464b4dba3e0.rst/MD5E-s26601--a6c75fb2503f9db4a7ca0464b4dba3e0.rst

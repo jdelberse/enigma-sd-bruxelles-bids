@@ -1,1 +1,0 @@
-../../../../../../../../.git/annex/objects/6k/vj/MD5E-s10410--d9e8539c5cb50cb7c94a5f58146ff1df.rst/MD5E-s10410--d9e8539c5cb50cb7c94a5f58146ff1df.rst
