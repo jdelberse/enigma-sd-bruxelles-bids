@@ -1,8 +1,8 @@
-# Bruxelles sleep deprivation MRI dataset (`bruxelles-bids`)
+# Bruxelles Dataset (`bruxelles-bids`)
 
 ## Overview
 
-This dataset contains MRI data from a sleep manipulation study conducted at the ULB Neurosciences Institute (Belgium). It is part of the ENIGMA-Sleep Working Group collection used to study the effects of sleep loss on brain structure and perivascular spaces. The data are organized according to the Brain Imaging Data Structure (BIDS) and managed with DataLad (git-annex).
+This dataset contains MRI data from a sleep manipulation study conducted at the ULB Neurosciences Institute (Belgium). It is part of the ENIGMA-Sleep Working Group collection used to study the effects of sleep loss on glymphatic MRI indices. The data are organized according to the Brain Imaging Data Structure (BIDS) and managed with DataLad (git-annex).
 
 ## Sample
 
@@ -19,32 +19,50 @@ This dataset contains MRI data from a sleep manipulation study conducted at the 
 
 - **SD**: total sleep deprivation, 22 h
 
-Participants were scanned under baseline and sleep manipulation conditions. [Add session order, interval between sessions, and time of day of scanning.]
+Participants were scanned under baseline and sleep manipulation conditions.
 
 ## Imaging data
 
-- T1-weighted structural MRI (`T1w`)
-- Diffusion-weighted MRI (`dMRI`)
+### T1-weighted (`anat/`)
 
-[Add scanner model, field strength, and key acquisition parameters.]
+| Parameter | Value |
+|---|---|
+| Scanner | Siemens Prisma |
+| Sequence | MPRAGE |
+| TR (ms) | 1900 |
+| TE (ms) | 2.19 |
+| TI (ms) | 900 |
+| Flip angle (°) | 9 |
+
+### Diffusion-weighted (`dwi/`)
+
+| Parameter | Value |
+|---|---|
+| Scanner | Siemens Prisma |
+| Sequence | Multiband EPI (acceleration factor 2) |
+| Resolution (mm³) | 2 x 2 x 2 |
+| TR (ms) | 4070 |
+| TE (ms) | 70 |
+| b-values (s/mm²) | 0, 650, 1000, 2000 |
+| Phase-encoding direction | AP/PA |
+
 
 ## Data organization
 
 - `sub-<ID>/ses-<label>/`: raw BIDS data (`anat/`, `dwi/`)
 - `participants.tsv`: participant-level information
 - `sub-<ID>/sub-<ID>_sessions.tsv`: session-level information (condition, visit, date, time)
-- `derivatives/`: processed outputs, if present
+- `derivatives/`: processed outputs
 
 File contents are tracked with git-annex. After cloning, retrieve data with `datalad get <path>`.
 
 ## Original publication
 
-Stee et al.  [Add full citation and DOI.]
+Stee, W. et al. Microstructural dynamics of motor learning and sleep-dependent consolidation: A diffusion imaging study. iScience 26, 108426 (2023).
+DOI: [10.1016/j.isci.2023.108426](https://doi.org/10.1016/j.isci.2023.108426)
 
-## Ethics and consent
-
-[Add ethics approval and consent statement from the original study.]
 
 ## Contact
 
-[Add site PI and contact email.]
+Jorik D. Elberse: j.elberse@fz-juelich.de
+Masoud Tahmasian: m.tahmasian@fz-juelich.de
