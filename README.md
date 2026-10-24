@@ -17,9 +17,8 @@ This dataset contains MRI data from a sleep manipulation study conducted at the 
 
 ## Sleep protocol
 
+- **BL**: baseline (habitual) sleep
 - **SD**: total sleep deprivation, 22 h
-
-Participants were scanned under baseline and sleep manipulation conditions.
 
 ## Imaging data
 
@@ -64,5 +63,5 @@ DOI: [10.1016/j.isci.2023.108426](https://doi.org/10.1016/j.isci.2023.108426)
 
 ## Contact
 
-Jorik D. Elberse: j.elberse@fz-juelich.de
-Masoud Tahmasian: m.tahmasian@fz-juelich.de
+- Jorik D. Elberse: j.elberse@fz-juelich.de
+- Masoud Tahmasian: m.tahmasian@fz-juelich.de
